@@ -6,6 +6,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import dale.highlow.cards.Card;
+import dale.highlow.cards.Card.SortMode;
+
 import junit.framework.TestCase;
 
 /**
