@@ -11,7 +11,7 @@ import junit.framework.TestCase;
 /**
  * A Unit test to check out that Card objects behave as they should.
  * 
- *
+ * This is based on version 3 of JUnit
  * 
  * @author dale
  *

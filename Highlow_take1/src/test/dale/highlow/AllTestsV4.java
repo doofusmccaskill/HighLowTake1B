@@ -3,6 +3,9 @@ package dale.highlow;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import dale.highlow.cards.CardTest;
+import dale.highlow.cards.HighLowCardTest;
+
 /**
  * A TestSuite which will carry out all JUnit 4.x tests
  * out in sequence.
@@ -15,6 +18,10 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+	CardTest.class,
+	HighLowCardTest.class
+	
+	
 	//XTestv4.class,
 	//yTestv3.class
 })

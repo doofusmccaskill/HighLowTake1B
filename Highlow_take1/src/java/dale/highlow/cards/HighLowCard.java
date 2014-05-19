@@ -6,7 +6,7 @@ package dale.highlow.cards;
  * Fields stored include name, value, suit and a graphical representation of the
  * card public accessor methods are provided to make these values available
  * 
- * This class extends the general Card classand adds specialised score details
+ * This class extends the general Card class and adds specialised score details
  * for HiLowJack.
  * 
  * @author Dale Macdonald
