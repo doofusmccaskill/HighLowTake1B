@@ -118,7 +118,7 @@ public class CardTest extends TestCase {
 	}
 	
 	public void testPokerSortOrder() {
-		Card.setSortMode(Card.SortMode.SORT_SIMPLE_ORDER);
+		Card.setSortMode(Card.SortMode.SORT_POKER_ORDER);
 		c1 = new Card("AS");
 		c2 = new Card("KS");
 		c3 = new Card("AH");

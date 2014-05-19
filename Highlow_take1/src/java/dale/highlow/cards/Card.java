@@ -182,12 +182,13 @@ public class Card implements Comparable<Card> {
 		case SORT_LOGICAL_ORDER:
 			//return (16 * (suit.charAt(0) - 0x42) + value) - (16 * (c.suit.charAt(0) - 0x42) + c.value);			
 			return (16 * (suit.charAt(0) - c.suit.charAt(0)) + value - c.value); // The above, simplified mathematically
-			//return (value - c.value);
 		case SORT_SIMPLE_ORDER:
 			return (value - c.value);
+		case SORT_POKER_ORDER:
+			//System.out.println(16 * (value - c.value) + (suit.charAt(0) - c.suit.charAt(0)));
+			return 16 * (value - c.value) + (suit.charAt(0) - c.suit.charAt(0));
 		default:
-			//return 14 * (suit.charAt(0) - c.suit.charAt(0)) + (value - c.value); // needs rejigging, as value is the more heavily weighted here
-			return 14 * (value - c.value) - (suit.charAt(0) - c.suit.charAt(0));
+			return (16 * (suit.charAt(0) - c.suit.charAt(0)) + value - c.value); // Logical is default if nothing is set
 		}
 	}
 
