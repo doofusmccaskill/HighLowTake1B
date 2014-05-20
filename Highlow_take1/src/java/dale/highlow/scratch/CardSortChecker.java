@@ -7,6 +7,7 @@ import java.util.List;
 import dale.highlow.cards.Card;
 import dale.highlow.cards.HighLowCard;
 import dale.highlow.cards.Card.SortMode;
+import dale.highlow.cards.PlayingCard;
 
 /**
  * A scratch class to build a few packs of cards, and then set sort orders and make
@@ -55,7 +56,7 @@ public class CardSortChecker {
 	
 	static void printPack(List<Card> aPack) {
 		System.out.print("[ ");
-		for (Card card : aPack) {
+		for (PlayingCard card : aPack) {
 			System.out.print(card.getName() + ", ");
 		}
 		System.out.println("\b\b ]");

@@ -42,7 +42,7 @@ public class PackHandler
 		packV.removeAllElements();	// A fresh pack
 		for( int j = 0; j < numOfCards; j++)
 		{
-			Card c = new Card(cardNameArray[j]);
+			PlayingCard c = new Card(cardNameArray[j]);
 			packV.add(c);
 		}
 		return packV;
@@ -82,7 +82,7 @@ public class PackHandler
  		{
  			for (int j = 0; j < numHands; j++)
  			{
- 				handArray[j].addCard((Card)(packV.elementAt(index)));
+ 				handArray[j].addCard((PlayingCard)(packV.elementAt(index)));
  				index++;
  			}	
  		}

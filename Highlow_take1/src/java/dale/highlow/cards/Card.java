@@ -10,21 +10,21 @@ import javax.swing.ImageIcon;
  * Public accessor methods are provided to make these values available.
  * 
  * Cards are immutable once constructed, though the static sort mode may be
- * changed, which will then apply to all card sorts henceforth.
- * (Note, this behaviour COULD have been implemented by preferring a 
- * Comparator<Card>, but I like the closed nature)
+ * changed, which will then apply to all card sorts henceforth. (Note, this
+ * behaviour COULD have been implemented by preferring a Comparator<Card>, but I
+ * like the closed nature)
  * 
  * This version is updated with Java 5 features.
  * 
- * TODO: Implement a DetailedName property, with ResourceBundle for I18n
- * TODO: ALso, a constructor that allows for alternative Icon settings
+ * TODO: Implement a DetailedName property, with ResourceBundle for I18n TODO:
+ * ALso, a constructor that allows for alternative Icon settings
  * 
  * @author Dale Macdonald
  * @version 1.1
  */
-public class Card implements Comparable<Card> {
+public class Card implements Comparable<Card>, PlayingCard {
 
-	/** Sort mode (Default LOGICAL)*/
+	/** Sort mode (Default LOGICAL) */
 	private static SortMode sortMode = SortMode.SORT_LOGICAL_ORDER;
 
 	/** Card Short name */
@@ -38,22 +38,27 @@ public class Card implements Comparable<Card> {
 
 	/** Card Associated Graphic */
 	private Icon graphic;
+	
+	/** Card Score - May differ from value, depending on the game */
+	private int score;
 
 	// Simplest possibility
 	// private enum SortMode {
 	//
-	// SORT_LOGICAL_ORDER, SORT_SIMPLE_ORDER, SORT_POKER_ORDER;
+	// 	SORT_LOGICAL_ORDER, SORT_SIMPLE_ORDER, SORT_POKER_ORDER;
 	// }
 
+	
 	// With user-defined enumerated values (ordinal)
 	/**
 	 * 
 	 * @author dale.macdonald
 	 * 
-	 * <li>{@link #SORT_LOGICAL_ORDER} The standard sort mode : (AS, KS, QS, ... 2C)</li>
-	 * <li>{@link #SORT_SIMPLE_ORDER}  The simple sort mode : (All aces equal, kings</li>
-	 * <li>{@link #SORT_POKER_ORDER}  The poker-value sort mode : (AS,AH,AD,AC,KS,KH,...,2C)</li>
-	 *
+	 *         <li>{@link #SORT_LOGICAL_ORDER} The standard sort mode : (AS, KS,
+	 *         QS, ... 2C)</li> <li>{@link #SORT_SIMPLE_ORDER} The simple sort
+	 *         mode : (All aces equal, kings</li> <li>{@link #SORT_POKER_ORDER}
+	 *         The poker-value sort mode : (AS,AH,AD,AC,KS,KH,...,2C)</li>
+	 * 
 	 */
 	public enum SortMode {
 
@@ -79,13 +84,18 @@ public class Card implements Comparable<Card> {
 	 * Exceptions are not handled, so ensure the name is valid! Incorrect names
 	 * lead to spurious card values.
 	 * 
-	 * @param name - the card name
-	 *            
+	 * @param name
+	 *            - the card name
+	 * 
 	 */
 	public Card(String name) {
 		name = name.toUpperCase();
 		this.name = name;
-		graphic = new ImageIcon("./graphics/" + name + ".gif"); // TODO - need to use proper method for jar inclusion here
+		graphic = new ImageIcon("./graphics/" + name + ".gif"); // TODO - need
+																// to use proper
+																// method for
+																// jar inclusion
+																// here
 
 		char last = name.charAt(name.length() - 1);
 		suit = whatSuit(last);
@@ -100,8 +110,10 @@ public class Card implements Comparable<Card> {
 	 * 
 	 * Incorrect names lead to spurious card values.
 	 * 
-	 * @param name - the card name
-	 * @param sort - sets a specific sort mode to be the default
+	 * @param name
+	 *            - the card name
+	 * @param sort
+	 *            - sets a specific sort mode to be the default
 	 */
 	public Card(String name, SortMode sort) {
 		this(name);
@@ -110,46 +122,54 @@ public class Card implements Comparable<Card> {
 
 	// Accessors
 
-	/**
-	 * Returns the String name of the card (eg "2C", "JD" etc)
-	 * 
-	 * @return Card short name
+	/* (non-Javadoc)
+	 * @see dale.highlow.cards.PlayingCard#getName()
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
 
-	/**
-	 * Returns the String suit of the card (eg "Clubs", "Diamonds" etc)
+	/* (non-Javadoc)
+	 * @see dale.highlow.cards.PlayingCard#getSuit()
 	 */
 
+	@Override
 	public String getSuit() {
 		return suit;
 	}
 
-	/**
-	 * Returns the Icon name of the card as an Icon reference to an ImageIcon
-	 * instance which depicts the actual card
+	/* (non-Javadoc)
+	 * @see dale.highlow.cards.PlayingCard#getGraphic()
 	 */
 
+	@Override
 	public Icon getGraphic() {
 		return graphic;
 	}
 
-	/**
-	 * Returns the int value of the card (eg ace = 14, three = 3 etc)
+	/* (non-Javadoc)
+	 * @see dale.highlow.cards.PlayingCard#getValue()
 	 */
 
+	@Override
 	public int getValue() {
 		return value;
+	}
+	
+	/* (non-Javadoc)
+	 * @see dale.highlow.cards.PlayingCard#getScore()
+	 */
+	@Override
+	public int getScore() {
+		return score;
 	}
 
 	/**
 	 * Accessor method to check current sort mode.
 	 */
 
-	public static SortMode getSortMode()
-	{
+	public static SortMode getSortMode() {
 		return Card.sortMode;
 	}
 
@@ -161,7 +181,8 @@ public class Card implements Comparable<Card> {
 	 * new mode. The method is synchronised to prevent other players changing
 	 * sortmode during a sort
 	 * 
-	 * @param mode - The new mode
+	 * @param mode
+	 *            - The new mode
 	 * @return - The new Sort Mode
 	 */
 
@@ -180,15 +201,26 @@ public class Card implements Comparable<Card> {
 
 		switch (sortMode) {
 		case SORT_LOGICAL_ORDER:
-			//return (16 * (suit.charAt(0) - 0x42) + value) - (16 * (c.suit.charAt(0) - 0x42) + c.value);			
-			return (16 * (suit.charAt(0) - c.suit.charAt(0)) + value - c.value); // The above, simplified mathematically
+			// return (16 * (suit.charAt(0) - 0x42) + value) - (16 *
+			// (c.suit.charAt(0) - 0x42) + c.value);
+			return (16 * (suit.charAt(0) - c.suit.charAt(0)) + value - c.value); // The
+																					// above,
+																					// simplified
+																					// mathematically
 		case SORT_SIMPLE_ORDER:
 			return (value - c.value);
 		case SORT_POKER_ORDER:
-			//System.out.println(16 * (value - c.value) + (suit.charAt(0) - c.suit.charAt(0)));
+			// System.out.println(16 * (value - c.value) + (suit.charAt(0) -
+			// c.suit.charAt(0)));
 			return 16 * (value - c.value) + (suit.charAt(0) - c.suit.charAt(0));
 		default:
-			return (16 * (suit.charAt(0) - c.suit.charAt(0)) + value - c.value); // Logical is default if nothing is set
+			return (16 * (suit.charAt(0) - c.suit.charAt(0)) + value - c.value); // Logical
+																					// is
+																					// default
+																					// if
+																					// nothing
+																					// is
+																					// set
 		}
 	}
 
@@ -199,7 +231,7 @@ public class Card implements Comparable<Card> {
 	public String toString() {
 		return ("[ Name: " + name + ", Value: " + value + ", Suit: " + suit + " ]");
 	}
-	
+
 	/*
 	 * Internal methods to produce useable characteristics of Cards
 	 */
@@ -237,22 +269,28 @@ public class Card implements Comparable<Card> {
 		}
 
 	}
-	
-	
 
 	public static void main(String[] args) {
 		for (SortMode mode : SortMode.values()) {
 			System.out.println(mode + " : " + mode.ordinal() + " -->  "
 					+ mode.getUserDefinedOrdinal());
 		}
-		
+
 		Card c = new Card("8H");
 		System.out.println(c.name);
 		System.out.println(c.suit);
 		System.out.println(c.graphic);
 		System.out.println(c.value);
-		
-		System.out .println("\n\n" + c.toString());	
+
+		System.out.println("\n\n" + c.toString());
+
+		c = new Card("AS");
+		System.out.println(c.name);
+		System.out.println(c.suit);
+		System.out.println(c.graphic);
+		System.out.println(c.value);
+
+		System.out.println("\n\n" + c.toString());
 
 	}
 
