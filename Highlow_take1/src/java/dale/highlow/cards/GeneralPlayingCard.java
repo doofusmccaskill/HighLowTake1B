@@ -22,7 +22,10 @@ import javax.swing.ImageIcon;
  * @author Dale Macdonald
  * @version 1.1
  */
-public class Card implements Comparable<Card>, PlayingCard {
+// TODO - note this does allow for different "types" of PlayingCard implementation to be
+//          compared - also note that earlier I was insdventently using "type" rather than
+//          instance encapsulation - c.sut, rather than c.getSuit()
+public class GeneralPlayingCard implements Comparable<PlayingCard>, PlayingCard {
 
 	/** Sort mode (Default LOGICAL) */
 	private static SortMode sortMode = SortMode.SORT_LOGICAL_ORDER;
@@ -88,7 +91,7 @@ public class Card implements Comparable<Card>, PlayingCard {
 	 *            - the card name
 	 * 
 	 */
-	public Card(String name) {
+	public GeneralPlayingCard(String name) {
 		name = name.toUpperCase();
 		this.name = name;
 		graphic = new ImageIcon("./graphics/" + name + ".gif"); // TODO - need
@@ -115,7 +118,7 @@ public class Card implements Comparable<Card>, PlayingCard {
 	 * @param sort
 	 *            - sets a specific sort mode to be the default
 	 */
-	public Card(String name, SortMode sort) {
+	public GeneralPlayingCard(String name, SortMode sort) {
 		this(name);
 		sortMode = sort;
 	}
@@ -170,7 +173,7 @@ public class Card implements Comparable<Card>, PlayingCard {
 	 */
 
 	public static SortMode getSortMode() {
-		return Card.sortMode;
+		return GeneralPlayingCard.sortMode;
 	}
 
 	// Mutators
@@ -188,33 +191,33 @@ public class Card implements Comparable<Card>, PlayingCard {
 
 	public static SortMode setSortMode(SortMode mode) // TODO synchronized?
 	{
-		Card.sortMode = mode;
+		GeneralPlayingCard.sortMode = mode;
 		return sortMode;
 	}
 
 	/**
 	 * Provides (natural) sort order depending on mode.
 	 */
-	// TODO - Check this carefully
+	// TODO - Check this carefully - note that comparing 2 different kinds of cards, which may have different sort orders - problematic
 	@Override
-	public int compareTo(Card c) {
+	public int compareTo(PlayingCard c) {
 
 		switch (sortMode) {
 		case SORT_LOGICAL_ORDER:
 			// return (16 * (suit.charAt(0) - 0x42) + value) - (16 *
 			// (c.suit.charAt(0) - 0x42) + c.value);
-			return (16 * (suit.charAt(0) - c.suit.charAt(0)) + value - c.value); // The
+			return (16 * (suit.charAt(0) - c.getSuit().charAt(0)) + value - c.getValue()); // The
 																					// above,
 																					// simplified
 																					// mathematically
 		case SORT_SIMPLE_ORDER:
-			return (value - c.value);
+			return (value - c.getValue());
 		case SORT_POKER_ORDER:
 			// System.out.println(16 * (value - c.value) + (suit.charAt(0) -
 			// c.suit.charAt(0)));
-			return 16 * (value - c.value) + (suit.charAt(0) - c.suit.charAt(0));
+			return 16 * (value - c.getValue()) + (suit.charAt(0) - c.getSuit().charAt(0));
 		default:
-			return (16 * (suit.charAt(0) - c.suit.charAt(0)) + value - c.value); // Logical
+			return (16 * (suit.charAt(0) - c.getSuit().charAt(0)) + value - c.getValue()); // Logical
 																					// is
 																					// default
 																					// if
@@ -276,7 +279,7 @@ public class Card implements Comparable<Card>, PlayingCard {
 					+ mode.getUserDefinedOrdinal());
 		}
 
-		Card c = new Card("8H");
+		GeneralPlayingCard c = new GeneralPlayingCard("8H");
 		System.out.println(c.name);
 		System.out.println(c.suit);
 		System.out.println(c.graphic);
@@ -284,7 +287,7 @@ public class Card implements Comparable<Card>, PlayingCard {
 
 		System.out.println("\n\n" + c.toString());
 
-		c = new Card("AS");
+		c = new GeneralPlayingCard("AS");
 		System.out.println(c.name);
 		System.out.println(c.suit);
 		System.out.println(c.graphic);

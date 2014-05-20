@@ -12,7 +12,7 @@ package dale.highlow.cards;
  * @author Dale Macdonald
  * @version 1.1
  */
-public class HighLowCard extends Card {
+public class HighLowCard extends GeneralPlayingCard {
 
 	/** The score a card will return in the "Game" tally of high low */
 	private int score;

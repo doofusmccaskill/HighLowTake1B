@@ -42,7 +42,7 @@ public class PackHandler
 		packV.removeAllElements();	// A fresh pack
 		for( int j = 0; j < numOfCards; j++)
 		{
-			PlayingCard c = new Card(cardNameArray[j]);
+			PlayingCard c = new GeneralPlayingCard(cardNameArray[j]);
 			packV.add(c);
 		}
 		return packV;

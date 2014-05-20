@@ -6,8 +6,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import dale.highlow.cards.Card;
-import dale.highlow.cards.Card.SortMode;
+import dale.highlow.cards.GeneralPlayingCard;
+import dale.highlow.cards.GeneralPlayingCard.SortMode;
 
 import junit.framework.TestCase;
 
@@ -21,16 +21,16 @@ import junit.framework.TestCase;
  */
 public class CardTest extends TestCase {
 
-	private Card c1;
-	private Card c2;
-	private Card c3;
+	private GeneralPlayingCard c1;
+	private GeneralPlayingCard c2;
+	private GeneralPlayingCard c3;
 
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
-		c1 = new Card("AC");
-		c2 = new Card("JD");
-		c3 = new Card("6S");
+		c1 = new GeneralPlayingCard("AC");
+		c2 = new GeneralPlayingCard("JD");
+		c3 = new GeneralPlayingCard("6S");
 	}
 	
 	@Override
@@ -66,25 +66,25 @@ public class CardTest extends TestCase {
 	}
 	
 	public void testLogicalSortOrder() {
-		c1 = new Card("AS");
-		c2 = new Card("KS");
-		c3 = new Card("AH");
+		c1 = new GeneralPlayingCard("AS");
+		c2 = new GeneralPlayingCard("KS");
+		c3 = new GeneralPlayingCard("AH");
 		
 		assertTrue(c1.compareTo(c2) > 0);
 		assertTrue(c1.compareTo(c3) > 0);
 		assertTrue(c2.compareTo(c3) > 0);
 		
-		c1 = new Card("10S");
-		c2 = new Card("KH");
-		c3 = new Card("AC");
+		c1 = new GeneralPlayingCard("10S");
+		c2 = new GeneralPlayingCard("KH");
+		c3 = new GeneralPlayingCard("AC");
 		
 		assertTrue(c1.compareTo(c2) > 0);
 		assertTrue(c1.compareTo(c3) > 0);
 		assertTrue(c2.compareTo(c3) > 0);
 		
-		c1 = new Card("8D");
-		c2 = new Card("KC");
-		c3 = new Card("2C");
+		c1 = new GeneralPlayingCard("8D");
+		c2 = new GeneralPlayingCard("KC");
+		c3 = new GeneralPlayingCard("2C");
 		
 		assertTrue(c1.compareTo(c2) > 0);
 		assertTrue(c1.compareTo(c3) > 0);
@@ -93,59 +93,59 @@ public class CardTest extends TestCase {
 	}
 	
 	public void testSimpleSortOrder() {
-		Card.setSortMode(Card.SortMode.SORT_SIMPLE_ORDER);
-		c1 = new Card("AS");
-		c2 = new Card("KS");
-		c3 = new Card("AH");
+		GeneralPlayingCard.setSortMode(GeneralPlayingCard.SortMode.SORT_SIMPLE_ORDER);
+		c1 = new GeneralPlayingCard("AS");
+		c2 = new GeneralPlayingCard("KS");
+		c3 = new GeneralPlayingCard("AH");
 		
 		assertTrue(c1.compareTo(c2) > 0);
 		assertTrue(c1.compareTo(c3) == 0);
 		assertTrue(c2.compareTo(c3) < 0);
 		
-		c1 = new Card("10S");
-		c2 = new Card("KH");
-		c3 = new Card("AC");
+		c1 = new GeneralPlayingCard("10S");
+		c2 = new GeneralPlayingCard("KH");
+		c3 = new GeneralPlayingCard("AC");
 		
 		assertTrue(c1.compareTo(c2) < 0);
 		assertTrue(c1.compareTo(c3) < 0);
 		assertTrue(c2.compareTo(c3) < 0);
 		
-		c1 = new Card("8D");
-		c2 = new Card("KC");
-		c3 = new Card("2C");
+		c1 = new GeneralPlayingCard("8D");
+		c2 = new GeneralPlayingCard("KC");
+		c3 = new GeneralPlayingCard("2C");
 		
 		assertTrue(c1.compareTo(c2) < 0);
 		assertTrue(c1.compareTo(c3) > 0);
 		assertTrue(c2.compareTo(c3) > 0);
-		Card.setSortMode(Card.SortMode.SORT_LOGICAL_ORDER);
+		GeneralPlayingCard.setSortMode(SortMode.SORT_LOGICAL_ORDER);
 	}
 	
 	public void testPokerSortOrder() {
-		Card.setSortMode(Card.SortMode.SORT_POKER_ORDER);
-		c1 = new Card("AS");
-		c2 = new Card("KS");
-		c3 = new Card("AH");
+		GeneralPlayingCard.setSortMode(SortMode.SORT_POKER_ORDER);
+		c1 = new GeneralPlayingCard("AS");
+		c2 = new GeneralPlayingCard("KS");
+		c3 = new GeneralPlayingCard("AH");
 		
 		assertTrue(c1.compareTo(c2) > 0);
 		assertTrue(c1.compareTo(c3) > 0);
 		assertTrue(c2.compareTo(c3) < 0);
 		
-		c1 = new Card("10S");
-		c2 = new Card("KH");
-		c3 = new Card("AC");
+		c1 = new GeneralPlayingCard("10S");
+		c2 = new GeneralPlayingCard("KH");
+		c3 = new GeneralPlayingCard("AC");
 		
 		assertTrue(c1.compareTo(c2) < 0);
 		assertTrue(c1.compareTo(c3) < 0);
 		assertTrue(c2.compareTo(c3) < 0);
 		
-		c1 = new Card("8D");
-		c2 = new Card("KC");
-		c3 = new Card("2C");
+		c1 = new GeneralPlayingCard("8D");
+		c2 = new GeneralPlayingCard("KC");
+		c3 = new GeneralPlayingCard("2C");
 		
 		assertTrue(c1.compareTo(c2) < 0);
 		assertTrue(c1.compareTo(c3) > 0);
 		assertTrue(c2.compareTo(c3) > 0);
-		Card.setSortMode(Card.SortMode.SORT_LOGICAL_ORDER);
+		GeneralPlayingCard.setSortMode(SortMode.SORT_LOGICAL_ORDER);
 	}
 	
 	public void testIcon() {
