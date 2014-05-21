@@ -21,6 +21,12 @@ public interface Pack {
 	 * Shuffle the pack into a nice random order.
 	 * 
 	 */
+	public abstract void reversePack();
+	
+	/**
+	 * Shuffle the pack into a nice random order.
+	 * 
+	 */
 	public abstract void shufflePack();
 	
 	/**
@@ -45,6 +51,8 @@ public interface Pack {
 	 * @return The dealt card
 	 */
 	public abstract PlayingCard dealCard();
+	
+	
 	
 	/**
 	 * Deal a card to each player.

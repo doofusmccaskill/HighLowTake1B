@@ -230,7 +230,7 @@ public class GeneralPlayingCard implements Comparable<PlayingCard>, PlayingCard 
 	/**
 	 * Overrides the standard toString method
 	 */
-
+    @Override
 	public String toString() {
 		return ("[ Name: " + name + ", Value: " + value + ", Suit: " + suit + " ]");
 	}

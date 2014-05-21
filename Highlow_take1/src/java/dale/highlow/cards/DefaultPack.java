@@ -2,6 +2,7 @@ package dale.highlow.cards;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.Vector;
 
 import dale.highlow.cards.GeneralPlayingCard;
@@ -37,30 +38,32 @@ public class DefaultPack implements Pack {
 	@Override
 	public void sortPack() {
 		Collections.sort(pack);
+	}
 
+	@Override
+	public void reversePack() {
+		Collections.reverse(pack);		
 	}
 
 	@Override
 	public void shufflePack() {
-		// TODO Auto-generated method stub
-
+		Collections.shuffle(pack);
 	}
 
 	@Override
 	public PlayingCard cutPack() {
-		// TODO Auto-generated method stub
-		return null;
+		Random random = new Random(System.currentTimeMillis());
+		return cutPack(random.nextInt(51));
 	}
 
 	@Override
 	public PlayingCard cutPack(int cutpoint) {
-		// TODO Auto-generated method stub
-		return null;
+		return pack.get(cutpoint - 1); //TODO is this best based at 1?
 	}
 
 	@Override
 	public PlayingCard dealCard() {
-		return pack.get(0);
+		return pack.remove(0);
 	}
 	
 	/**
@@ -76,16 +79,37 @@ public class DefaultPack implements Pack {
 			GeneralPlayingCard c = new GeneralPlayingCard(s);
 			pack.add(c);
 		}
-		//TODO - sort the pack
+		sortPack();
+		numOfCards = pack.size();
 		return pack;
+	}
+	
+	@Override
+	public String toString() {
+		
+		String str = "";
+		str += ("[ ");
+		for (PlayingCard card : pack) {
+			str += (card.getName() + ",");
+		}
+		str = str.substring(0, str.length() - 1);
+		str += (" ]");
+		return str;
 	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		Pack pack = new DefaultPack();
+		System.out.println(pack.toString());
+		pack.shufflePack();
+		System.out.println(pack.toString());
+		((DefaultPack)pack).getSortedPack();
+		System.out.println(pack.toString());
+		pack.reversePack();
+		System.out.println(pack.toString());
+		pack.shufflePack();
+		System.out.println(pack.toString());
 	}
-
 }

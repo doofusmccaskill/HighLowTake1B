@@ -34,7 +34,7 @@ public class CardSortChecker {
 		
 		printPack(pack);
 		Collections.sort(pack);
-		printPack(pack);
+		System.out.print("1) + ");printPack(pack);
 		
 		GeneralPlayingCard.setSortMode(SortMode.SORT_SIMPLE_ORDER);
 		Collections.sort(pack);

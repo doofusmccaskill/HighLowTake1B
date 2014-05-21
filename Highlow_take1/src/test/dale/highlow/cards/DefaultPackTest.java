@@ -45,19 +45,36 @@ public class DefaultPackTest {
 	 */
 	@Test
 	public void testSortPack() {
-//		pack.sortPack();
-//		PlayingCard c1 = pack.dealCard();
-//		PlayingCard c2 = pack.dealCard();
-//		assertEquals(c1.getName(),"AS");
-//		assertEquals(c2.getName(),"JS");
+		pack.sortPack();
+		PlayingCard c1 = pack.dealCard();
+		assertEquals("2C", c1.getName());
+		
+		c1 = pack.dealCard();
+		assertEquals("3C", c1.getName());
+		
+		c1 = pack.dealCard();
+		assertEquals("4C", c1.getName());
 	}
-
+	
+	/**
+	 * Test method for {@link DefaultPack#reversePack()}.
+	 */
+	@Test
+	public void testReversePack() {
+		fail("Not yet implemented");
+	}
+	
 	/**
 	 * Test method for {@link DefaultPack#shufflePack()}.
 	 */
 	@Test
 	public void testShufflePack() {
-		fail("Not yet implemented");
+		pack.sortPack();
+		PlayingCard c1 = pack.cutPack(5);
+		assertEquals("6C", c1.getName());
+		pack.shufflePack();
+		c1 = pack.cutPack(5);
+		assertFalse(c1.getName().equals("6C"));
 	}
 
 	/**
@@ -65,7 +82,10 @@ public class DefaultPackTest {
 	 */
 	@Test
 	public void testCutPack() {
-		fail("Not yet implemented");
+		pack.shufflePack();
+		PlayingCard c1 = pack.cutPack();
+		PlayingCard c2 = pack.cutPack();
+		assertFalse(c1.equals(c2));
 	}
 
 	/**
@@ -73,7 +93,10 @@ public class DefaultPackTest {
 	 */
 	@Test
 	public void testCutPackInt() {
-		fail("Not yet implemented");
+		PlayingCard c1 = pack.cutPack(14);
+		assertEquals("2D", c1.getName());
+		c1 = pack.cutPack(51);
+		assertEquals("KS", c1.getName());
 	}
 
 	/**
@@ -95,8 +118,8 @@ public class DefaultPackTest {
 		List<GeneralPlayingCard> list = ((DefaultPack)pack).getSortedPack();
 		PlayingCard c1 = list.get(0);
 		PlayingCard c2 = list.get(10);
-		assertEquals(c1.getName(),"AS");
-		assertEquals(c2.getName(),"JS");
+		assertEquals("2C", c1.getName());
+		assertEquals("QC", c2.getName());
 		
 		//fail("Not yet implemented");
 	}
