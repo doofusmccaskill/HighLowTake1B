@@ -18,7 +18,7 @@ import javax.swing.Icon;
  * @author Dale Macdonald
  * @version 1.2
  */
-public interface PlayingCard {
+public interface PlayingCard extends Comparable<PlayingCard>{
 
 	/**
 	 * Returns the String name of the card (eg "2C", "JD" etc)

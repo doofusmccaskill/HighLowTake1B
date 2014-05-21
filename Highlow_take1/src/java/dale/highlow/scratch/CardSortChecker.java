@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import dale.highlow.cards.Card;
+import dale.highlow.cards.GeneralPlayingCard;
 import dale.highlow.cards.HighLowCard;
-import dale.highlow.cards.Card.SortMode;
+import dale.highlow.cards.GeneralPlayingCard.SortMode;
 import dale.highlow.cards.PlayingCard;
 
 /**
@@ -26,7 +26,7 @@ public class CardSortChecker {
 	
 	public static void main(String[] args) {
 		
-		List<Card> pack = new ArrayList<Card>();
+		List<GeneralPlayingCard> pack = new ArrayList<GeneralPlayingCard>();
 		
 		for (String s : cardNameArray) {
 			pack.add(new HighLowCard(s));
@@ -36,25 +36,25 @@ public class CardSortChecker {
 		Collections.sort(pack);
 		printPack(pack);
 		
-		Card.setSortMode(SortMode.SORT_SIMPLE_ORDER);
+		GeneralPlayingCard.setSortMode(SortMode.SORT_SIMPLE_ORDER);
 		Collections.sort(pack);
 		printPack(pack);
 		
-		Card.setSortMode(SortMode.SORT_POKER_ORDER);
+		GeneralPlayingCard.setSortMode(SortMode.SORT_POKER_ORDER);
 		Collections.sort(pack);
 		printPack(pack);
 		
-		Card.setSortMode(SortMode.SORT_LOGICAL_ORDER);
+		GeneralPlayingCard.setSortMode(SortMode.SORT_LOGICAL_ORDER);
 		Collections.sort(pack);
 		printPack(pack);
 		
-		Card.setSortMode(SortMode.SORT_LOGICAL_ORDER);
+		GeneralPlayingCard.setSortMode(SortMode.SORT_LOGICAL_ORDER);
 		Collections.reverse(pack);
 		printPack(pack);
 		
 	}
 	
-	static void printPack(List<Card> aPack) {
+	static void printPack(List<GeneralPlayingCard> aPack) {
 		System.out.print("[ ");
 		for (PlayingCard card : aPack) {
 			System.out.print(card.getName() + ", ");

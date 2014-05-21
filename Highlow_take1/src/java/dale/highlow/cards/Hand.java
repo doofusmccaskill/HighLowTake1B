@@ -32,7 +32,7 @@ public class Hand
  *	Adds a card to the hand
  * 	@param whichCard - a Card object to be added
  */	
-	public void addCard (Card whichCard)
+	public void addCard (PlayingCard whichCard)
 	{
 		handVect.addElement(whichCard);
 		numOfCards++;	
@@ -42,7 +42,7 @@ public class Hand
  *	Adds a number of cards to the hand
  * 	@param cardArray - a Card array to be added
  */	
-	public void addCards (Card [] cardArray)
+	public void addCards (PlayingCard [] cardArray)
 	{
 		for(int j = 0; j < cardArray.length; j++)
 		{
@@ -85,13 +85,13 @@ public class Hand
 /**
  *	Returns an array containing(a clone of) the current handVector Cards of the hand
  */	
-	public Card[] getHandArray()
+	public PlayingCard[] getHandArray()
 	{
 		Vector handCopyVect = getHand();
-		Card [] handArray = new Card [numOfCards];
+		PlayingCard [] handArray = new PlayingCard [numOfCards];
 		for (int j = 0; j < numOfCards; j++)
 		{
-			handArray[j] = (Card)handCopyVect.elementAt(j);	
+			handArray[j] = (PlayingCard)handCopyVect.elementAt(j);	
 		}
 		return handArray;	
 	}
@@ -101,10 +101,10 @@ public class Hand
  */
 	public void logicalSort()
 	{	
-		int sm = Card.getSortMode();
-		Card.setSortMode(Card.SORT_LOGICAL_ORDER);
+		int sm = GeneralPlayingCard.getSortMode();
+		GeneralPlayingCard.setSortMode(PlayingCard.SORT_LOGICAL_ORDER);
 		Collections.sort(handVect);
-		Card.setSortMode(sm);
+		GeneralPlayingCard.setSortMode(sm);
 	}
 
 /**
@@ -112,10 +112,10 @@ public class Hand
  */	
 	public void simpleSort()
 	{	
-		int sm = Card.getSortMode();
-		Card.setSortMode(Card.SORT_SIMPLE_ORDER);
+		int sm = GeneralPlayingCard.getSortMode();
+		GeneralPlayingCard.setSortMode(PlayingCard.SORT_SIMPLE_ORDER);
 		Collections.sort(handVect);
-		Card.setSortMode(sm);
+		GeneralPlayingCard.setSortMode(sm);
 	}
 
 /**
@@ -123,19 +123,19 @@ public class Hand
  */	
 	public void singleSort()
 	{	
-		int sm = Card.getSortMode();
-		Card.setSortMode(Card.SORT_SINGLE_ORDER);
+		int sm = GeneralPlayingCard.getSortMode();
+		GeneralPlayingCard.setSortMode(PlayingCard.SORT_SINGLE_ORDER);
 		Collections.sort(handVect);
-		Card.setSortMode(sm);
+		GeneralPlayingCard.setSortMode(sm);
 	}
 
 /**
  *	Plays a card out of the hand, accordingly reducing card numOfCards and handVect
  *	@param whichCard -  is the integer index of the card in the hand
  */	
-	public Card playCard(int whichCard)
+	public PlayingCard playCard(int whichCard)
 	{
-		Card card = (Card)handVect.elementAt(whichCard);
+		PlayingCard card = (PlayingCard)handVect.elementAt(whichCard);
 		handVect.removeElementAt(whichCard);
 		numOfCards--;
 		return card;
@@ -145,7 +145,7 @@ public class Hand
  *	Plays a card out of the hand, accordingly reducing card numOfCards and handVect
  *	@param whichCard -  is a card object referring to a card in the hand
  */	
-	public void playCard(Card whichCard)
+	public void playCard(PlayingCard whichCard)
 	{
 		handVect.removeElement(whichCard);
 		numOfCards--;
