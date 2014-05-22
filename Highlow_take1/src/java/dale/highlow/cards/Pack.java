@@ -39,7 +39,7 @@ public interface Pack {
 	/**
 	 * Cut the pack at the point specified and return the card
 	 * 
-	 * @param the point within the pack at which to cut.
+	 * @param cutpoint - the point within the pack at which to cut.
 	 * @return The card that is cut.
 	 */
 	public abstract PlayingCard cutPack(int cutpoint);

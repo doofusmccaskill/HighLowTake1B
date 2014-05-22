@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.Vector;
 
 import dale.highlow.cards.GeneralPlayingCard;
+import dale.highlow.cards.GeneralPlayingCard.SortMode;
 import dale.highlow.cards.Pack;
 import dale.highlow.cards.PlayingCard;
 
@@ -19,7 +20,7 @@ import dale.highlow.cards.PlayingCard;
  */
 public class DefaultPack implements Pack {
 
-	private String [] cardNameArray ={"AS","2S", "3S", "4S", "5S", "6S", "7S", "8S", "9S", 
+	public String [] cardNameArray ={"AS","2S", "3S", "4S", "5S", "6S", "7S", "8S", "9S", 
  			"10S", "JS", "QS", "KS" , "AH","2H", "3H", "4H", "5H", "6H", "7H", "8H", "9H",
 			"10H", "JH", "QH", "KH" , "AD","2D", "3D", "4D", "5D", "6D", "7D", "8D", "9D",
 			"10D", "JD", "QD", "KD" , "AC","2C", "3C", "4C", "5C", "6C", "7C", "8C", "9C",
@@ -30,34 +31,37 @@ public class DefaultPack implements Pack {
 	
 	private	int numOfCards;
 	
+	//private Random random = new Random(System.currentTimeMillis());
+	
 	public DefaultPack() {
 		numOfCards = cardNameArray.length;
 		getSortedPack();
 	}
 	
 	@Override
-	public void sortPack() {
+	public synchronized void  sortPack() {
 		Collections.sort(pack);
 	}
 
 	@Override
-	public void reversePack() {
+	public synchronized void  reversePack() {
 		Collections.reverse(pack);		
 	}
 
 	@Override
-	public void shufflePack() {
+	public synchronized void  shufflePack() {
 		Collections.shuffle(pack);
 	}
 
 	@Override
-	public PlayingCard cutPack() {
+	public synchronized PlayingCard cutPack() {
 		Random random = new Random(System.currentTimeMillis());
-		return cutPack(random.nextInt(51));
+		return cutPack(random.nextInt(52) + 1);
 	}
 
 	@Override
-	public PlayingCard cutPack(int cutpoint) {
+	public synchronized PlayingCard cutPack(int cutpoint) {
+		///System.out.println(cutpoint);
 		return pack.get(cutpoint - 1); //TODO is this best based at 1?
 	}
 
@@ -73,7 +77,7 @@ public class DefaultPack implements Pack {
 	 * 
 	 * @return A fresh, sorted pack
 	 */
-	public List<GeneralPlayingCard> getSortedPack() {
+	public synchronized List<GeneralPlayingCard> getSortedPack() {
 		pack.clear(); // A fresh pack
 		for (String s : cardNameArray) {
 			GeneralPlayingCard c = new GeneralPlayingCard(s);
@@ -110,6 +114,9 @@ public class DefaultPack implements Pack {
 		pack.reversePack();
 		System.out.println(pack.toString());
 		pack.shufflePack();
+		System.out.println(pack.toString());
+		GeneralPlayingCard.setSortMode(SortMode.SORT_POKER_ORDER);
+		((DefaultPack)pack).getSortedPack();
 		System.out.println(pack.toString());
 	}
 }

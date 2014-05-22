@@ -84,8 +84,13 @@ public class DefaultPackTest {
 	public void testCutPack() {
 		pack.shufflePack();
 		PlayingCard c1 = pack.cutPack();
+		//try {Thread.sleep(1);} catch (InterruptedException e) {e.printStackTrace();}
+		///pack.shufflePack();
 		PlayingCard c2 = pack.cutPack();
+		boolean equal = c1.getName().equals(c2.getName());
+		System.out.println(equal + "  " + c1.getName() + " : " + c2.getName());
 		assertFalse(c1.equals(c2));
+		//assertFalse(false);
 	}
 
 	/**
