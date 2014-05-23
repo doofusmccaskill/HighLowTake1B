@@ -20,6 +20,7 @@ import dale.highlow.cards.PlayingCard;
  */
 public class DefaultPack implements Pack {
 
+	/** An array for constructing the pack - Future implementation may allow such to be passed in */
 	public String [] cardNameArray ={"AS","2S", "3S", "4S", "5S", "6S", "7S", "8S", "9S", 
  			"10S", "JS", "QS", "KS" , "AH","2H", "3H", "4H", "5H", "6H", "7H", "8H", "9H",
 			"10H", "JH", "QH", "KH" , "AD","2D", "3D", "4D", "5D", "6D", "7D", "8D", "9D",
@@ -27,30 +28,32 @@ public class DefaultPack implements Pack {
 			"10C", "JC", "QC", "KC" };
 	
 	//TODO - try to go to PlayingCard, using wild-cards / bounds etc
-	private List<GeneralPlayingCard> pack = new ArrayList<GeneralPlayingCard>();
+	private List<GeneralPlayingCard> packL = new ArrayList<GeneralPlayingCard>();
+	
 	
 	private	int numOfCards;
 	
-	//private Random random = new Random(System.currentTimeMillis());
+	//Random random = new Random(System.currentTimeMillis());
+
 	
 	public DefaultPack() {
-		numOfCards = cardNameArray.length;
 		getSortedPack();
+		numOfCards = packL.size();
 	}
 	
 	@Override
 	public synchronized void  sortPack() {
-		Collections.sort(pack);
+		Collections.sort(packL);
 	}
 
 	@Override
 	public synchronized void  reversePack() {
-		Collections.reverse(pack);		
+		Collections.reverse(packL);		
 	}
 
 	@Override
 	public synchronized void  shufflePack() {
-		Collections.shuffle(pack);
+		Collections.shuffle(packL);
 	}
 
 	@Override
@@ -61,15 +64,23 @@ public class DefaultPack implements Pack {
 
 	@Override
 	public synchronized PlayingCard cutPack(int cutpoint) {
-		///System.out.println(cutpoint);
-		return pack.get(cutpoint - 1); //TODO is this best based at 1?
+		return packL.get(cutpoint - 1); //TODO is this best based at 1?
 	}
 
 	@Override
 	public PlayingCard dealCard() {
-		return pack.remove(0);
+		return packL.remove(0);
 	}
 	
+	/**
+	 * A convenience method for checking the number of cards in the pack.
+	 * @return The number of cards in the pack.
+	 */
+	@Override
+	public int getNumOfCards() {
+		return numOfCards;
+	}
+
 	/**
 	 * This method refreshes the internal pack holding list, and builds
 	 * a new one, sorted according to the Sort Type of the cards.
@@ -77,15 +88,25 @@ public class DefaultPack implements Pack {
 	 * 
 	 * @return A fresh, sorted pack
 	 */
-	public synchronized List<GeneralPlayingCard> getSortedPack() {
-		pack.clear(); // A fresh pack
+	public List<GeneralPlayingCard> getSortedPack() {
+		packL.clear(); // A fresh pack
 		for (String s : cardNameArray) {
 			GeneralPlayingCard c = new GeneralPlayingCard(s);
-			pack.add(c);
+			packL.add(c);
 		}
 		sortPack();
-		numOfCards = pack.size();
-		return pack;
+		numOfCards = packL.size();
+		return packL;
+	}
+	
+	/**
+	 * Convenience static method to serve up a pack instance.
+	 * 
+	 * Current implementation returns a new pack instance each time.
+	 * @return A new Pack instance
+	 */
+	public static Pack getInstance() {
+		return new DefaultPack();
 	}
 	
 	@Override
@@ -93,7 +114,7 @@ public class DefaultPack implements Pack {
 		
 		String str = "";
 		str += ("[ ");
-		for (PlayingCard card : pack) {
+		for (PlayingCard card : packL) {
 			str += (card.getName() + ",");
 		}
 		str = str.substring(0, str.length() - 1);
@@ -106,17 +127,17 @@ public class DefaultPack implements Pack {
 	 */
 	public static void main(String[] args) {
 		Pack pack = new DefaultPack();
-		System.out.println(pack.toString());
+		System.out.println("Fresh Pack: " + pack.toString());
 		pack.shufflePack();
-		System.out.println(pack.toString());
+		System.out.println("Shuffled Pack: " + pack.toString());
 		((DefaultPack)pack).getSortedPack();
-		System.out.println(pack.toString());
+		System.out.println("Sorted Pack: " + pack.toString());
 		pack.reversePack();
-		System.out.println(pack.toString());
+		System.out.println("Reversed Pack: " + pack.toString());
 		pack.shufflePack();
-		System.out.println(pack.toString());
+		System.out.println("Shuffled Pack: " + pack.toString());
 		GeneralPlayingCard.setSortMode(SortMode.SORT_POKER_ORDER);
 		((DefaultPack)pack).getSortedPack();
-		System.out.println(pack.toString());
+		System.out.println("Poker-Sorted Pack: " + pack.toString());
 	}
 }

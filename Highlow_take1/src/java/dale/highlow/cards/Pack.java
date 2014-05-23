@@ -52,7 +52,12 @@ public interface Pack {
 	 */
 	public abstract PlayingCard dealCard();
 	
-	
+	/**
+	 * Return the number of cards in the pack.
+	 * 
+	 * @return The number of cards in the full pack.
+	 */
+	public abstract int getNumOfCards();
 	
 	/**
 	 * Deal a card to each player.

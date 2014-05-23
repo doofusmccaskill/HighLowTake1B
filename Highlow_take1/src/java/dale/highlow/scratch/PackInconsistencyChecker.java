@@ -39,7 +39,7 @@ public class PackInconsistencyChecker {
 			e.printStackTrace();
 		}
 		
-		for (int i = 0; i < 200000; i++) {
+		for (int i = 0; i < 500000; i++) {
 			PlayingCard pc = pack.cutPack();
 			int j;
 			for (j = 0; j < 52; j++) {
