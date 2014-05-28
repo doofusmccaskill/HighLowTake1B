@@ -61,7 +61,10 @@ public class DefaultPackTest {
 	 */
 	@Test
 	public void testReversePack() {
-		fail("Not yet implemented");
+		pack.reversePack();
+		assertEquals("AS", pack.cutPack(1).getName());
+		assertEquals("KS", pack.cutPack(2).getName());
+		//fail("Not yet implemented");
 	}
 	
 	/**
@@ -107,7 +110,7 @@ public class DefaultPackTest {
 			if (i == 0) fail("Not all cards get returned from cut");
 		
 		int stdDev = (int)standardDeviation(spread);
-		assertTrue(stdDev < 250);
+		assertTrue(stdDev < 150);
 	}
 
 	/**
@@ -126,10 +129,12 @@ public class DefaultPackTest {
 	 */
 	@Test
 	public void testDealCard() {
+		pack.sortPack();
 		PlayingCard c1 = pack.dealCard();
 		PlayingCard c2 = pack.dealCard();
-		assertEquals(c1.getName(),"AS");
-		assertEquals(c2.getName(),"JS");
+		assertEquals("2C", c1.getName());
+		assertEquals("3C", c2.getName());
+		assertEquals(50, pack.getNumOfCards());
 	}
 
 	/**

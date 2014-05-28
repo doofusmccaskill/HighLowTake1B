@@ -33,7 +33,7 @@ public class DefaultPack implements Pack {
 	
 	private	int numOfCards;
 	
-	//Random random = new Random(System.currentTimeMillis());
+	Random random = new Random(System.currentTimeMillis());
 
 	
 	public DefaultPack() {
@@ -58,7 +58,7 @@ public class DefaultPack implements Pack {
 
 	@Override
 	public synchronized PlayingCard cutPack() {
-		Random random = new Random(System.currentTimeMillis());
+		//Random random = new Random(System.currentTimeMillis());
 		return cutPack(random.nextInt(52) + 1);
 	}
 
@@ -69,6 +69,7 @@ public class DefaultPack implements Pack {
 
 	@Override
 	public PlayingCard dealCard() {
+		numOfCards--;
 		return packL.remove(0);
 	}
 	
