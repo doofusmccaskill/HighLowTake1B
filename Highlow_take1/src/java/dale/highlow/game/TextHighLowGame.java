@@ -42,15 +42,46 @@ public class TextHighLowGame {
 	
 	private TextHighLowGame() {
 		setUpTeams();
+		printTeams();
 	}
 	
 	private void setUpTeams() {
 		Scanner scanner = new Scanner(System.in);
+		
+		// Team One Setup
 		System.out.println("Type first team's name:");
 		String str = scanner.nextLine();
 		teamOne = new HighLowTeam(str);
 		
 		System.out.println("Type first player's name:");
 		String player = scanner.nextLine();
+		teamOne.setPlayer(0, new HighLowPlayer(player));
+		
+		System.out.println("Type second player's name:");
+		player = scanner.nextLine();
+		teamOne.setPlayer(1, new HighLowPlayer(player));
+		
+		// Team Two Setup
+		System.out.println("Type second team's name:");
+		str = scanner.nextLine();
+		teamTwo = new HighLowTeam(str);
+		
+		System.out.println("Type first player's name:");
+		player = scanner.nextLine();
+		teamTwo.setPlayer(0, new HighLowPlayer(player));
+		
+		System.out.println("Type second player's name:");
+		player = scanner.nextLine();
+		teamTwo.setPlayer(1, new HighLowPlayer(player));
+	}
+	
+	private void printTeams() {
+		System.out.println("Team One: " + teamOne);
+		System.out.println("\tPlayer One: " + teamOne.getPlayer(0));
+		System.out.println("\tPlayer Two: " + teamOne.getPlayer(1));
+		
+		System.out.println("Team Two: " + teamTwo);
+		System.out.println("\tPlayer One: " + teamTwo.getPlayer(0));
+		System.out.println("\tPlayer Two: " + teamTwo.getPlayer(1));
 	}
 }

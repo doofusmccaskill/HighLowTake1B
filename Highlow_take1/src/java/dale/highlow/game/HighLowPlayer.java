@@ -1,4 +1,6 @@
-package dale.highlow.cards;
+package dale.highlow.game;
+
+import dale.highlow.cards.PlayingCard;
 
 
 
@@ -28,5 +30,8 @@ public class HighLowPlayer implements Player {
 		return null;
 	}
 
-	
+	@Override
+	public String toString() {
+		return name;
+	}
 }

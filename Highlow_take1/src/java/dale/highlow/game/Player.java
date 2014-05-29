@@ -1,4 +1,5 @@
-package dale.highlow.cards;
+package dale.highlow.game;
+import dale.highlow.cards.HighLowCard;
 import dale.highlow.cards.PlayingCard;
 
 /**
@@ -18,4 +19,8 @@ public interface Player {
 	
 	/** Return the player's name */
 	public String getName();
+	
+	/**  */
+	public PlayingCard playCard(int num]);
 }
+
